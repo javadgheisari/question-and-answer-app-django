@@ -4,11 +4,16 @@
 
 {% block content %}
     {% for post in posts %}
-        <div class="card">
-            <p class="card-header"> {{ post.user }}</p>
-            <p class="card-body"><a href="{{ post.get_absolute_url }}"> {{ post.body }} </a></p>
+        <div dir='rtl' class="row">
+            <div class="col-6">
+                <div class="card text-right">
+                    <p class="card-header"> {{ post.user }}</p>
+                    <p class="card-body"><a href="{{ post.get_absolute_url }}"> {{ post.body }} </a></p>
             {#اطلاعات از جدول دیتابیس post واکشی میشوند#}
+                </div>
+            </div>
         </div>
+
     {% endfor %}
 
 {% endblock %}

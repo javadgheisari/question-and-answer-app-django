@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,12 +10,20 @@
 <body>
     {% include 'inc/navbar.html' %}
 
-    <div class="jumbotron">
-        {% include 'inc/messages.html' %}
+    <div class="row">
+        <div class="col-md-9">
+            <div class="jumbotron">
+                {% include 'inc/messages.html' %}
+            
+                {% block content %}
 
-        {% block content %}
+                {% endblock %}
+            </div>
+        </div>
 
-        {% endblock %}
+        <div class="col-md-3">
+            {% include 'inc/right nav.html' %}
+        </div>
     </div>
 
 

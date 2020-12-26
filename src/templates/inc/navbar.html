@@ -1,13 +1,17 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-info">
+<nav class="navbar navbar-expand-lg navbar-dark bg-info" dir="rtl">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-link active" href="{% url 'posts:all_posts' %}">Home <span class="sr-only">(current)</span></a>
-            <a class="nav-link" href="#">Features</a>
-            <a class="nav-link" href="#">Pricing</a>
+            <a class="nav-link active" href="{% url 'posts:all_posts' %}">صفحه اصلی <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#">ثبت نام</a>
+            <a class="nav-link" href="#">ورود</a>
         </div>
+{#        <form class="form-inline" action="#">#}
+{#            <input class="form-control mr-sm-2" type="search" placeholder="جست و جو">#}
+{#            <button class="btn btn-success" type="submit">بگرد</button>#}
+{#        </form>#}
     </div>
 </nav>
