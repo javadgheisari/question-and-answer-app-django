@@ -24,9 +24,10 @@ class UserRegisterForm(forms.Form):
                                    'class': 'form-control', 'placeholder': 'Username'
                                }))
 
-    email = forms.EmailField(label='ایمیل', error_messages=messages, max_length=50, widget=forms.EmailInput(attrs={
-        'class': 'form-control', 'placeholder': 'Email'
-    }))
+    email = forms.EmailField(label='ایمیل', error_messages=messages, max_length=50,
+                             widget=forms.EmailInput(attrs={
+                                 'class': 'form-control', 'placeholder': 'Email'
+                             }))
 
     password = forms.CharField(label='رمز عبور', error_messages=messages, max_length=35,
                                widget=forms.PasswordInput(attrs={

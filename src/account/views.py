@@ -15,7 +15,7 @@ def user_login(request):
             # احراز هویت را انجام میدهد
             if user is not None:
                 login(request, user)
-                messages.success(request, 'you are registered', 'success')
+                # messages.success(request, 'you are registered', 'success')
                 return redirect('posts:all_posts')
 
             else:
@@ -35,16 +35,16 @@ def user_register(request):
             # ساخت کاربر و ثبت نام آن
             login(request, user)
             # پس از ثبت نام مستقیم لاگین کند
-            messages.success(request, 'با موفقیت ثبت نام شدید', 'success')
+            # messages.success(request, 'با موفقیت ثبت نام شدید', 'success')
             return redirect('posts:all_posts')
 
     else:
-        form = UserLoginForm()
+        form = UserRegisterForm()
 
     return render(request, 'account/register.html', {'form': form})
 
 
 def user_logout(request):
     logout(request)
-    messages.success(request, 'با موفقیت خارج شدید', 'success')
+    # messages.success(request, 'با موفقیت خارج شدید', 'success')
     return redirect('posts:all_posts')
