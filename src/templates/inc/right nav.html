@@ -20,7 +20,25 @@
             <br><br>
             <div class='sidebar-nav' id="navbarNavAltMarkup">
                 <ul class="text-right" style="list-style-type: none">
-                    <li> <a class="nav-link text-dark" href="#">دسته بندی سوالات</a> </li>
+                    <li dir="ltr">
+                        <div class="btn-group dropleft">
+                          <button type="button" class="btn dropdown-toggle text-dark" data-toggle="dropdown">
+                            دسته بندی سوالات
+                          </button>
+                          <div class="dropdown-menu text-center">
+                            <!-- Dropdown menu links -->
+                              <a class="text-dark" style="text-decoration: none" href="{% url 'posts:ejtemaei' %}">اجتماعی</a>
+                              <hr>
+                              <a class="text-dark" style="text-decoration: none" href="{% url 'posts:eghtesadi' %}">اقتصادی</a>
+                              <hr>
+                              <a class="text-dark" style="text-decoration: none" href="{% url 'posts:darsi' %}">درسی</a>
+                              <hr>
+                              <a class="text-dark" style="text-decoration: none" href="{% url 'posts:siyasi' %}">سیاسی</a>
+                              <hr>
+                              <a class="text-dark" style="text-decoration: none" href="{% url 'posts:farhango honar' %}">فرهنگ و هنر</a>
+                          </div>
+                        </div>
+                    </li>
                     <li> <a class="nav-link text-dark" href="#">کاربران</a> </li>
 {#                    <li> <a class="nav-link text-dark" href="#">Shortcuts</a> </li>#}
 {#                    <li> <a class="nav-link text-dark" href="#">Overview</a> </li>#}

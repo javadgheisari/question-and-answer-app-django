@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+    {% for post in posts %}
+        <br>
+        <div dir='rtl' class="d-flex justify-content-center">
+            <div class="col-6">
+                {% ifequal post.category '4' %}
+                <div class="card text-right">
+                    <p class="card-header"> {{ post.user }}</p>
+                    <p class="card-body"><a href="{{ post.get_absolute_url }}"> {{ post.body }} </a></p>
+            {#اطلاعات از جدول دیتابیس post واکشی میشوند#}
+                </div>
+                {% endifequal %}
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% endblock %}
