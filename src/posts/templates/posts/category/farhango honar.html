@@ -1,17 +1,23 @@
+<head>
+    <title>سوالات فرهنگ و هنر</title>
+</head>
 {% extends 'base.html' %}
 
 {% block title %} Home {% endblock %}
 
 {% block content %}
+    <br><h4 class="text-center">سوالات فرهنگ و هنر</h4><hr>
     {% for post in posts %}
         <br>
         <div dir='rtl' class="d-flex justify-content-center">
-            <div class="col-6">
+            <div class="col-9">
                 {% ifequal post.category '5' %}
-                <div class="card text-right">
-                    <p class="card-header"> {{ post.user }}</p>
-                    <p class="card-body"><a href="{{ post.get_absolute_url }}"> {{ post.body }} </a></p>
-            {#اطلاعات از جدول دیتابیس post واکشی میشوند#}
+                <div class="card text-right" style="background-color: #eeeeee">
+                    <p class="card-header bg-white"><a href="{% url 'account:dashboard' post.user.id %}"> {{ post.user }} </a></p>
+                    <p class="card-body" style="width: 400px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">
+                        {{ post.body }}
+                    </p>
+                    <button class="col-4 btn bg-info" type='button'><a class="text-white" href="{{ post.get_absolute_url }}"> رفتن به سوال</a></button>
                 </div>
                 {% endifequal %}
             </div>

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ user.username }} profile {% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h4 class="text-center">{{ user.username|capfirst }}</h4><br>
+        <p class="text-right"> {{ user.profile.bio }} </p><br><br>
+        {% for post in posts %}
+            <div class="card text-right">
+                <p class="card-body"><a href="{{ post.get_absolute_url }}">{{ post.body }}</a></p>
+            </div>
+        {% empty %}
+            <p class="text-center">این کاربر سوال پرسیده شده ای ندارد</p>
+        {% endfor %}
+    </div>
+{% endblock %}
