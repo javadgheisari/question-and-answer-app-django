@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from posts.models import Post
 
+
 def user_login(request):
     if request.method == 'POST':
         form = UserLoginForm(request.POST)
@@ -15,11 +16,11 @@ def user_login(request):
             # احراز هویت را انجام میدهد
             if user is not None:
                 login(request, user)
-                # messages.success(request, 'you are registered', 'success')
+                messages.success(request, 'با موفقیت وارد شدید')
                 return redirect('posts:all_posts')
 
             else:
-                messages.error(request, 'نام کاربری یا رمز عبور اشتباه است', 'danger')
+                messages.error(request, 'نام کاربری یا رمز عبور اشتباه است')
     else:
         form = UserLoginForm()
 
@@ -35,7 +36,7 @@ def user_register(request):
             # ساخت کاربر و ثبت نام آن
             login(request, user)
             # پس از ثبت نام مستقیم لاگین کند
-            # messages.success(request, 'با موفقیت ثبت نام شدید', 'success')
+            messages.success(request, 'با موفقیت ثبت نام شدید')
             return redirect('posts:all_posts')
 
     else:
@@ -46,11 +47,11 @@ def user_register(request):
 
 def user_logout(request):
     logout(request)
-    # messages.success(request, 'با موفقیت خارج شدید', 'success')
+    messages.success(request, 'با موفقیت خارج شدید')
     return redirect('posts:all_posts')
 
 
 def user_dashboard(request, user_id):
     user = get_object_or_404(User, id=user_id)
     posts = Post.objects.filter(user=user)
-    return render(request, 'account/dashboard.html', {'user': user, 'posts':posts})
+    return render(request, 'account/dashboard.html', {'user': user, 'posts': posts})

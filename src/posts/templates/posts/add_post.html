@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="jumbotron"> <br>
+        <form action="" method="post" class="text-center" dir="rtl">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="ثبت پرسش جدید" class="btn btn-success">
+        </form>
+    </div>
+{% endblock %}

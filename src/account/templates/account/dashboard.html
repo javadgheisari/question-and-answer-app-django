@@ -5,7 +5,12 @@
 {% block content %}
     <div class="jumbotron">
         <h4 class="text-center">{{ user.username|capfirst }}</h4><br>
-        <p class="text-right"> {{ user.profile.bio }} </p><br><br>
+{#        <p class="text-right" style="display: inline"> {{ user.profile.bio }} </p>#}
+{#        <p style="display: inline" align="right">اضافه</p>#}
+        <div style="overflow: hidden;">
+            <p style="float: right;">{{ user.profile.bio }}</p>
+            <a class="btn btn-outline-info" href="{% url 'posts:add_post' request.user.id %}" style="float: left;">پرسش جدید</a>
+        </div><br><br>
         {% for post in posts %}
             <div class="card text-right">
                 <p class="card-body"><a href="{{ post.get_absolute_url }}">{{ post.body }}</a></p>
