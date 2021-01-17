@@ -10,3 +10,13 @@ class AddPostForm(forms.ModelForm):
             'body': 'بدنه',
             'category': 'دسته بندی'
         }
+
+
+class EditPostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('body', 'category')
+        labels = {
+            'body': 'بدنه',
+            'category': 'دسته بندی'
+        }

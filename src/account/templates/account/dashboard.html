@@ -9,7 +9,13 @@
 {#        <p style="display: inline" align="right">اضافه</p>#}
         <div style="overflow: hidden;">
             <p style="float: right;">{{ user.profile.bio }}</p>
-            <a class="btn btn-outline-info" href="{% url 'posts:add_post' request.user.id %}" style="float: left;">پرسش جدید</a>
+            {% if self_dash %}
+            <a class="btn btn-info" href="{% url 'posts:add_post' request.user.id %}" style="float: left;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-plus" viewBox="0 0 14 18">
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg><span> پرسش جدید</span>
+            </a>
+            {% endif %}
         </div><br><br>
         {% for post in posts %}
             <div class="card text-right">

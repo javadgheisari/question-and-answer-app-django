@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %} edit post {% endblock %}
+
+{% block content %}
+    <div class="jumbotron"> <br>
+        <form action="" method="post" class="text-center" dir="rtl">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="ویرایش" class="btn btn-success">
+        </form>
+    </div>
+{% endblock %}

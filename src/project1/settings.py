@@ -82,6 +82,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project1.wsgi.application'
 
+# :اضافی های خودمان
+LOGIN_URL = 'account:Login'
+# ALLOW_UNICODE_SLUGS = True
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -131,4 +134,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-# ALLOW_UNICODE_SLUGS = True
