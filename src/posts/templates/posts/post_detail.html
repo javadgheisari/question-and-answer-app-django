@@ -10,12 +10,63 @@
                 </svg>
             </a>
             <a class="btn btn-success" style="float: left; margin-left: 7px" href="{% url 'posts:post_edit' post.user.id post.id %}">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 18">
-  <path d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
-</svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 18">
+                  <path d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                </svg>
             </a>
         {% endif %}
-        <p> {{ post.user }} | {{ post.created|date }}</p>
-        <p> {{ post.body }}</p>
+        <p> {{ post.created|date }} | {{ post.user }}</p>
+        <p> {{ post.body }}</p><hr>
+
+        {% with total=comments.count %}
+            <p style="float: left">پاسخ</p><span style="float:left;"> {{ total }} </span>
+        {% endwith %}
+
+        {% if request.user.is_authenticated %}
+            <!-- Button trigger modal -->
+            <button style="float: right" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-right-text" viewBox="0 0 16 16">
+                    <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1H2zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z"/>
+                    <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+            </button><br>
+
+            <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="margin-left: 180px">پاسخ بگذارید</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action="" method="post" class="text-center" dir="rtl">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="modal-footer">
+                        <input type="submit" value="ارسال" style="margin-left: 180px" class="btn btn-success">
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% else %}
+            <p style="float: right" class="text-danger">نمیتوانید پاسخی بگذارید، چون وارد نشده اید!
+                <a style="margin-right: 5px" class="text-primary" href="{% url 'account:Login' %}">(وارد شوید)</a>
+            </p>
+        {% endif %}
+        <br><br>
+        {% for comment in comments %}
+            <div class="card bg-info text-white">
+                <p class="card-header">{{ comment.user }}</p>
+                <p class="card-body">{{ comment.body }}</p>
+            </div><br>
+        {% empty %}
+            <p class="text-center">کامنتی وجود ندارد</p>
+        {% endfor %}
+
     </div>
 {% endblock %}

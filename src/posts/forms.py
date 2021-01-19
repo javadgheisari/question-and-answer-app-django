@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Post, Comment
 
 
 class AddPostForm(forms.ModelForm):
@@ -19,4 +19,13 @@ class EditPostForm(forms.ModelForm):
         labels = {
             'body': 'بدنه',
             'category': 'دسته بندی'
+        }
+
+
+class AddCommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('body',)
+        labels = {
+            'body': ''
         }

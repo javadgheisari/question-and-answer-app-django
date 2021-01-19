@@ -21,6 +21,7 @@
                         {% csrf_token %}
                         {{ form.as_p }}
                         <input type="submit" value="ورود" class="btn btn-success">
+                       <a style="float: right; margin-top: 7px" href="{% url 'account:register' %}" class="text-success">ثبت نام نکرده اید؟</a>
                     </form>
                     <hr color="white">
                 </div>

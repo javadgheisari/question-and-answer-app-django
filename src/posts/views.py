@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post
-from .forms import AddPostForm, EditPostForm
+from .models import Post, Comment
+from .forms import AddPostForm, EditPostForm, AddCommentForm
 from django.contrib import messages
 from django.utils.text import slugify
 from django.contrib.auth.decorators import login_required
@@ -42,7 +42,19 @@ def post_siyasi(request):
 def post_detail(request, year, month, day, slug):
     post = get_object_or_404(Post, created__year=year, created__month=month, created__day=day,
                              slug=slug)
-    return render(request, 'posts/post_detail.html', {'post': post})
+    comments = Comment.objects.filter(post=post, is_reply=False)
+    if request.method == 'POST':
+        form = AddCommentForm(request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.post = post
+            new_comment.user = request.user
+            new_comment.save()
+            messages.success(request, 'پاسخ شما ثبت شد')
+            return redirect('posts:post_detail', year, month, day, slug)
+    else:
+        form = AddCommentForm()
+    return render(request, 'posts/post_detail.html', {'post': post, 'comments': comments, 'form': form})
 
 
 @login_required
