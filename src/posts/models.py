@@ -27,6 +27,9 @@ class Post(models.Model):
         return reverse('posts:post_detail', args=[self.created.year, self.created.month,
                                                   self.created.day, self.slug])
 
+    class Meta:
+        ordering = ('-created',)
+
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ucomment')
@@ -38,3 +41,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.user} - {self.body[:30]}'
+
+    class Meta:
+        ordering = ('-created',)

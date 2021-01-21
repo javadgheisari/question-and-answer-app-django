@@ -64,3 +64,8 @@ def user_dashboard(request, user_id):
     if request.user.id == user_id:
         self_dash = True
     return render(request, 'account/dashboard.html', {'user': user, 'posts': posts, 'self_dash': self_dash})
+
+
+def all_account(request):
+    users = User.objects.all()
+    return render(request, 'account/all_account.html', {"users": users})
