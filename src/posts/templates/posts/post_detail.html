@@ -19,12 +19,15 @@
                 </svg>
             </a>
         {% endif %}
-        <p style="font-size: 12px"> {{ post.created|date }} <span style="font-size: 14px">| {{ post.user }}</span></p>
+        <div style="display: inline-block; max-width: 50%">
+            <p dir="rtl" style="font-size: 13px; float: left">| {{ post.jcreated }} </p>
+            <p style="font-size: 14px; float: right; margin-left: 4px"> {{ post.user }} </p>
+        </div>
         <p> {{ post.body }}</p>
         <hr>
 
         {% with total=comments.count %}
-            <p style="float: left">پاسخ</p><span style="float:left;"> {{ total }} </span>
+            <p style="float: left; margin-right: 2px">پاسخ</p><span style="float:left;"> {{ total }} </span>
         {% endwith %}
 
         {% if request.user.is_authenticated %}
@@ -48,7 +51,7 @@
                 <p class="card-header">{{ comment.user }}</p>
                 <p class="card-body">{{ comment.body }}</p>
                 <p class="card-body text-left"
-                   style="line-height: 0.1; font-size: 13px; margin-bottom: 1px">{{ comment.created|date }}</p>
+                   dir='rtl' style="line-height: 0.1; font-size: 13px; margin-bottom: 1px; margin-left: -12px">{{ comment.jcreated }}</p>
                 {% if request.user.is_authenticated %}
                     <div class="card-body" dir="rtl">
                         <form action="{% url 'posts:add_reply' post.id comment.id %}" method="post" class="col-4">

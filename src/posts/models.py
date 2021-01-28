@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from extensions.utils import jalali_converter
 
 # Create your models here:
 
@@ -30,6 +31,9 @@ class Post(models.Model):
     class Meta:
         ordering = ('-created',)
 
+    def jcreated(self):
+        return jalali_converter(self.created)
+
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ucomment')
@@ -44,3 +48,6 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ('-created',)
+
+    def jcreated(self):
+        return jalali_converter(self.created)
