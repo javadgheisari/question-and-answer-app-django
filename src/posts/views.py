@@ -4,10 +4,15 @@ from .forms import AddPostForm, EditPostForm, AddCommentForm, AddReplyForm
 from django.contrib import messages
 from django.utils.text import slugify
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q   # for search
 
 
 def all_posts(request):
-    posts = Post.objects.all()
+    search = request.GET.get('query-search')
+    if search:
+        posts = Post.objects.filter(Q(body__icontains=search))
+    else:
+        posts = Post.objects.all()
     return render(request, 'posts/all_posts.html', {'posts': posts})
 
 
