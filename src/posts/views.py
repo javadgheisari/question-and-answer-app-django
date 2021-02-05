@@ -4,7 +4,7 @@ from .forms import AddPostForm, EditPostForm, AddCommentForm, AddReplyForm
 from django.contrib import messages
 from django.utils.text import slugify
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q   # for search
+from django.db.models import Q  # for search
 
 
 def all_posts(request):
@@ -126,3 +126,12 @@ def add_reply(request, post_id, comment_id):
             reply.save()
             messages.success(request, 'پاسخ شما ثبت شد')
     return redirect('posts:post_detail', post.created.year, post.created.month, post.created.day, post.slug)
+
+# @login_required
+# def like_comment(request, post_id, comment_id):
+#     post = get_object_or_404(Post, id=post_id)
+#     comment = get_object_or_404(Comment, id=comment_id)
+#     like = Like(comment=comment, post=post, user=request.user)
+#     like.save()
+#     messages.success(request, 'لایک شما ثبت شد')
+#     return redirect('posts:post_detail', post.created.year, post.created.month, post.created.day, post.slug)

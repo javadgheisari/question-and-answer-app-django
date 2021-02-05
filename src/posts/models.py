@@ -19,7 +19,7 @@ class Post(models.Model):
     body = models.TextField(max_length=500)
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='1')
     slug = models.SlugField(max_length=150, allow_unicode=True)
-    created = models.DateField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.user} - {self.body[:30]}'
@@ -51,3 +51,11 @@ class Comment(models.Model):
 
     def jcreated(self):
         return jalali_converter(self.created)
+
+# class Like(models.Model):
+#     comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='clike')
+#     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='plike')
+#     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ulike')
+#
+#     def __str__(self):
+#         return f'{self.user} liked {self.comment.body[:20]} in {self.post.slug}'

@@ -36,12 +36,19 @@ def user_register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            user = User.objects.create_user(cd['username'], cd['email'], cd['password'])
-            # ساخت کاربر و ثبت نام آن
-            login(request, user)
-            # پس از ثبت نام مستقیم لاگین کند
-            messages.success(request, 'با موفقیت ثبت نام شدید')
-            return redirect('posts:all_posts')
+            qs = User.objects.filter(username=cd['username'])
+            qs2 = User.objects.filter(email=cd['email'])
+            if qs.exists():
+                messages.error(request, 'این نام کاربری قبلا استفاده شده است')
+            elif qs2.exists():
+                messages.error(request, 'این ایمیل قبلا استفاده شده است')
+            else:
+                user = User.objects.create_user(cd['username'], cd['email'], cd['password'])
+                # ساخت کاربر و ثبت نام آن
+                login(request, user)
+                # پس از ثبت نام مستقیم لاگین کند
+                messages.success(request, 'با موفقیت ثبت نام شدید')
+                return redirect('posts:all_posts')
 
     else:
         form = UserRegisterForm()

@@ -8,8 +8,10 @@
         <div dir='rtl' class="d-flex justify-content-center">
             <div class="col-9">
                 <div class="card text-right" style="background-color: #eeeeee">
-                    <p class="card-header bg-white"><a
-                            href="{% url 'account:dashboard' post.user.id %}"> {{ post.user }} </a></p>
+                    <p class="card-header bg-white">
+                        <a href="{% url 'account:dashboard' post.user.id %}"> {{ post.user }} </a>
+                        <span class="mt-1" style="float:left; font-size: 10px">{{ post.jcreated }}</span>
+                    </p>
                     <p class="card-body"
                        style="width: 400px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">
                         {{ post.body }}

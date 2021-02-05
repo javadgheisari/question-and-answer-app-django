@@ -26,6 +26,7 @@
         <p> {{ post.body }}</p>
         <hr>
 
+        <!-- Comment counter -->
         {% with total=comments.count %}
             <p style="float: left; margin-right: 2px">پاسخ</p><span style="float:left;"> {{ total }} </span>
         {% endwith %}
@@ -46,14 +47,28 @@
             </p>
         {% endif %}
         <br><br>
+
+        <!-- Show comment -->
         {% for comment in comments %}
             <div class="card bg-dark text-white m-5 p-3">
                 <p class="card-header">{{ comment.user }}</p>
                 <p class="card-body">{{ comment.body }}</p>
-                <p class="card-body text-left"
-                   dir='rtl' style="line-height: 0.1; font-size: 13px; margin-bottom: 1px; margin-left: -12px">{{ comment.jcreated }}</p>
+                <div class="card-body text-left" dir="rtl" style="line-height: 0.1; font-size: 13px; margin-bottom: 1px;">
+                    <p style="float: left; margin-left: -12px;">
+                        {{ comment.jcreated }}
+                    </p>
                 {% if request.user.is_authenticated %}
-                    <div class="card-body" dir="rtl">
+                    <!-- Like comment -->
+                    <a class="text-white" style="float:left; margin-left: 12px; margin-top: -3px" href="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 20 20">
+                        <path d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                        </svg>
+                    </a>
+                </div>
+
+{#                {% if request.user.is_authenticated %}#}
+                    <!-- Reply comment -->
+                    <div class="card-body" dir="rtl" style="margin-top: -35px">
                         <form action="{% url 'posts:add_reply' post.id comment.id %}" method="post" class="col-4">
                             {% csrf_token %}
                             {{ reply.as_p }}
