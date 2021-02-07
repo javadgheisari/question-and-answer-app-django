@@ -79,6 +79,16 @@ def all_account(request):
 
 
 @login_required
+def user_delete(request, user_id):
+    if user_id == request.user.id:
+        User.objects.filter(id=user_id).delete()
+        messages.info(request, 'اکانت شما با موفقیت حذف شد، به امید دیدار مجدد شما')
+        return redirect('posts:all_posts')
+    else:
+        return redirect('posts:all_posts')
+
+
+@login_required
 def edit_profile(request, user_id):
     user = get_object_or_404(User, id=user_id)
     if request.method == 'POST':
