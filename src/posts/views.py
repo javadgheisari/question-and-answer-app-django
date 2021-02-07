@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post, Comment
+from .models import Post, Comment, Like
 from .forms import AddPostForm, EditPostForm, AddCommentForm, AddReplyForm
 from django.contrib import messages
 from django.utils.text import slugify
@@ -49,6 +49,11 @@ def post_detail(request, year, month, day, slug):
                              slug=slug)
     comments = Comment.objects.filter(post=post, is_reply=False)
     reply_form = AddReplyForm()
+    can_like = False
+    # if request.user.is_authenticated:
+    #     if comments.user_can_like(request.user):
+    #         can_like = True
+
     if request.method == 'POST':
         form = AddCommentForm(request.POST)
         if form.is_valid():
@@ -61,7 +66,7 @@ def post_detail(request, year, month, day, slug):
     else:
         form = AddCommentForm()
     return render(request, 'posts/post_detail.html',
-                  {'post': post, 'comments': comments, 'form': form, 'reply': reply_form})
+                  {'post': post, 'comments': comments, 'form': form, 'reply': reply_form, 'can_like': can_like})
 
 
 @login_required
@@ -127,11 +132,15 @@ def add_reply(request, post_id, comment_id):
             messages.success(request, 'پاسخ شما ثبت شد')
     return redirect('posts:post_detail', post.created.year, post.created.month, post.created.day, post.slug)
 
-# @login_required
-# def like_comment(request, post_id, comment_id):
-#     post = get_object_or_404(Post, id=post_id)
-#     comment = get_object_or_404(Comment, id=comment_id)
-#     like = Like(comment=comment, post=post, user=request.user)
-#     like.save()
-#     messages.success(request, 'لایک شما ثبت شد')
-#     return redirect('posts:post_detail', post.created.year, post.created.month, post.created.day, post.slug)
+
+@login_required
+def like_comment(request, post_id, comment_id):
+    post = get_object_or_404(Post, id=post_id)
+    comment = get_object_or_404(Comment, id=comment_id)
+    like, created = Like.objects.get_or_create(user=request.user, post=post, comment=comment)
+    if not created:
+        messages.error(request, '! قبلا لایک کرده اید')
+        return redirect('posts:post_detail', post.created.year, post.created.month, post.created.day, post.slug)
+    else:
+        messages.success(request, 'لایک شما ثبت شد')
+        return redirect('posts:post_detail', post.created.year, post.created.month, post.created.day, post.slug)

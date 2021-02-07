@@ -52,10 +52,21 @@ class Comment(models.Model):
     def jcreated(self):
         return jalali_converter(self.created)
 
-# class Like(models.Model):
-#     comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='clike')
-#     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='plike')
-#     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ulike')
-#
-#     def __str__(self):
-#         return f'{self.user} liked {self.comment.body[:20]} in {self.post.slug}'
+    def likes_count(self):
+        return self.clike.count()
+
+    # def user_can_like(self, user):
+    #     user_like = user.ulike.all()
+    #     qs = user_like.filter(post=Post, comment=self)
+    #     if qs.exists():
+    #         return True
+    #     return False
+
+
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ulike')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='plike')
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='clike')
+
+    def __str__(self):
+        return f'{self.user} liked {self.comment.body[:20]} in {self.post.body[:20]}'
