@@ -9,7 +9,7 @@
           <th scope="col"></th>
           <th scope="col">نام کاربری</th>
           <th scope="col">پرسش ها</th>
-{#          <th scope="col">آخرین دسترسی</th>#}
+          <th scope="col">آخرین دسترسی</th>
         </tr>
       </thead>
       <tbody>
@@ -21,7 +21,7 @@
             </svg></th>
           <td><a class="text-dark" href="{% url 'account:dashboard' user.id %}">{{ user.username }}</a></td>
           <td>{{ user.post_set.count }}</td>
-{#          <td>{{ user.last_login|date }}</td>#}
+          <td dir="ltr">{{ user.last_login|timesince }} ago</td>
         </tr>
       {% endfor %}
       </tbody>

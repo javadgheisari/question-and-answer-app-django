@@ -17,6 +17,7 @@ CATEGORY_CHOICES = (
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.TextField(max_length=500)
+    image = models.ImageField(upload_to='post_image/%Y/%m/%d', blank=True, null=True)
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='1')
     slug = models.SlugField(max_length=150, allow_unicode=True)
     created = models.DateTimeField(auto_now_add=True)

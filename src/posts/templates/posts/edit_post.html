@@ -4,7 +4,7 @@
 
 {% block content %}
     <div class="jumbotron"> <br>
-        <form action="" method="post" class="text-center" dir="rtl">
+        <form action="" method="post" class="text-center" dir="rtl" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" value="ویرایش" class="btn btn-success">

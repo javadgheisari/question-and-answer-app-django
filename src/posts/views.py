@@ -73,7 +73,7 @@ def post_detail(request, year, month, day, slug):
 def add_post(request, user_id):
     if request.user.id == user_id:
         if request.method == 'POST':
-            form = AddPostForm(request.POST)
+            form = AddPostForm(request.POST, request.FILES)
             if form.is_valid():
                 new_post = form.save(commit=False)
                 new_post.user = request.user
@@ -102,7 +102,7 @@ def post_edit(request, user_id, post_id):
     if request.user.id == user_id:
         post = get_object_or_404(Post, id=post_id)
         if request.method == 'POST':
-            form = EditPostForm(request.POST, instance=post)
+            form = EditPostForm(request.POST, request.FILES, instance=post)
             if form.is_valid():
                 ep = form.save(commit=False)
                 ep.slug = slugify(form.cleaned_data['body'][:20], allow_unicode=True)

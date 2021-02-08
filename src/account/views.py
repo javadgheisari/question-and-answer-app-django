@@ -74,7 +74,7 @@ def user_dashboard(request, user_id):
 
 
 def all_account(request):
-    users = User.objects.all()
+    users = User.objects.all().order_by('-last_login')
     return render(request, 'account/all_account.html', {"users": users})
 
 
