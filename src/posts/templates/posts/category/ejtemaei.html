@@ -6,7 +6,7 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
-    <br><h4 class="text-center">سوالات اجتماعی</h4><hr><br>
+    <br><h4 class="text-center">سوالات اجتماعی</h4><hr class="bg-dark" style="margin-right: auto;margin-left: auto; width: 40%"><br>
     {% for post in posts %}
         {% ifequal post.category '1'%}
             <div dir='rtl' class="d-flex justify-content-center">

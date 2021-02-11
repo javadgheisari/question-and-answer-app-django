@@ -21,6 +21,7 @@ class Post(models.Model):
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='1')
     slug = models.SlugField(max_length=150, allow_unicode=True)
     created = models.DateTimeField(auto_now_add=True)
+    # views = models.IntegerField(default=0)
 
     def __str__(self):
         return f'{self.user} - {self.body[:30]}'

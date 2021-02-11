@@ -60,7 +60,7 @@ def user_register(request):
 def user_logout(request):
     logout(request)
     messages.success(request, 'با موفقیت خارج شدید')
-    return redirect('posts:all_posts')
+    return redirect('account:Login')
 
 
 @login_required

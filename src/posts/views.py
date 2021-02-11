@@ -49,6 +49,8 @@ def post_detail(request, year, month, day, slug):
                              slug=slug)
     comments = Comment.objects.filter(post=post, is_reply=False)
     reply_form = AddReplyForm()
+    # post.views = post.views + 1
+    # post.save()
     can_like = False
     # if request.user.is_authenticated:
     #     if comments.user_can_like(request.user):
@@ -139,8 +141,14 @@ def like_comment(request, post_id, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
     like, created = Like.objects.get_or_create(user=request.user, post=post, comment=comment)
     if not created:
-        messages.error(request, '! قبلا لایک کرده اید')
+        messages.error(request, 'لایک  شما حذف شد')
+        like.delete()
         return redirect('posts:post_detail', post.created.year, post.created.month, post.created.day, post.slug)
     else:
         messages.success(request, 'لایک شما ثبت شد')
         return redirect('posts:post_detail', post.created.year, post.created.month, post.created.day, post.slug)
+
+
+# def most_view_post(request):
+#     posts = Post.objects.all().order_by('views')[:5]
+#     return render(request, 'templates/inc/right nav.html', {'posts': posts})
